@@ -1,13 +1,9 @@
 class ImagesController < ApplicationController
+
   def index
-    if params[:path]
-      @lists = aws_load(params[:path])
-      @images = print_regex(@lists, /uploads\/([0-9]+)\/([0-9]+)\/(.+\.jpg)/)
-      render json: @images
-    else
-      @lists = []
-      render plain: params.inspect
-    end
+    @lists = aws_load('uploads')
+    @images = print_regex(@lists, /uploads\/([0-9]+)\/([0-9]+)\/(.+\.jpg)/)
+    render json: @images
   end
 
   private
